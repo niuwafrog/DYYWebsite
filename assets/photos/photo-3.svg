@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 840" width="640" height="840">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0.2" y2="1">
+      <stop offset="0" stop-color="#f0e4ca"/><stop offset=".6" stop-color="#cbb093"/><stop offset="1" stop-color="#cbb093"/>
+    </linearGradient>
+    <radialGradient id="vig" cx=".5" cy=".42" r=".78">
+      <stop offset=".5" stop-color="#000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#3a2718" stop-opacity=".5"/>
+    </radialGradient>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="11"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="linear" slope=".22"/></feComponentTransfer>
+    </filter>
+  </defs>
+  <rect width="640" height="840" fill="url(#bg)"/>
+  <rect y="504" width="640" height="336" fill="#6f5b47" opacity=".22"/>
+  <rect y="504" width="640" height="6" fill="#fff8ea" opacity=".3"/>
+  <rect x="58" y="118" width="192" height="235" fill="#fdf6e4" opacity=".8" stroke="#6f5b47" stroke-opacity=".35" stroke-width="5"/>
+  <rect x="58" y="235" width="192" height="5" fill="#6f5b47" opacity=".3"/>
+  
+    <g>
+      <ellipse cx="171" cy="386" rx="27" ry="30" fill="#6f5b47" opacity=".92"/>
+      <path d="M121 582
+               c0 -152.1726232767105 50.67348355114461 -170.43333806991578 101.34696710228921 0
+               z" fill="#6f5b47" opacity=".84"/>
+    </g>
+  <rect width="640" height="840" fill="url(#vig)"/>
+  <rect width="640" height="840" filter="url(#grain)" opacity=".6"/>
+  <text x="320" y="814" text-anchor="middle" font-family="Georgia, serif" font-size="19" fill="#6f5b47" opacity=".7" letter-spacing="3">1980 · 占位照片</text>
+</svg>

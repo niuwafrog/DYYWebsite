@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>热点坐标工具 · 奶奶的房间</title>
+<style>
+  :root{--ink:#332c28;--paper:#f3ebdd;--gold:#a8834f;--line:rgba(51,44,40,.16)}
+  *{box-sizing:border-box}
+  body{margin:0;font:14px/1.7 "PingFang SC","Noto Sans SC",system-ui,sans-serif;color:var(--ink);background:#eee5d6;height:100vh;display:flex;flex-direction:column}
+  header{padding:10px 16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;border-bottom:1px solid var(--line);background:#faf5ea}
+  h1{font-size:13px;font-weight:400;letter-spacing:.24em;margin:0 12px 0 0;color:#6b5d52}
+  .hint{font-size:12px;color:#8a7a68}
+  main{flex:1;display:grid;grid-template-columns:1fr 340px;min-height:0}
+  #stage{position:relative;overflow:auto;display:flex;align-items:center;justify-content:center;padding:20px;background:repeating-linear-gradient(45deg,#e9dfcd 0 10px,#e5dac7 10px 20px)}
+  #wrap{position:relative;line-height:0;box-shadow:0 20px 50px rgba(51,44,40,.25)}
+  #wrap img{display:block;max-width:100%;max-height:calc(100vh - 140px);width:auto}
+  #wrap.empty{width:min(70vw,760px);aspect-ratio:16/9;background:#faf5ea;border:2px dashed rgba(51,44,40,.25);display:grid;place-items:center;line-height:1.6;color:#8a7a68;font-size:13px;text-align:center;padding:20px}
+  .dot{position:absolute;border:2px solid #b4553f;border-radius:50%;background:rgba(180,85,63,.18);transform:translate(-50%,-50%);cursor:move;touch-action:none;display:grid;place-items:center;font:11px/1 sans-serif;color:#7a2f1f}
+  .dot span{background:rgba(255,255,255,.85);padding:2px 5px;border-radius:3px;white-space:nowrap;font-size:10px;transform:translateY(-140%)}
+  aside{border-left:1px solid var(--line);background:#faf5ea;display:flex;flex-direction:column;min-height:0}
+  .list{flex:1;overflow:auto;padding:10px}
+  .row{border:1px solid var(--line);border-radius:6px;padding:8px;margin-bottom:8px;background:#fffdf8}
+  .row__top{display:flex;gap:6px;align-items:center;margin-bottom:6px}
+  .row input,.row select{font:12px/1.4 inherit;padding:3px 6px;border:1px solid var(--line);border-radius:4px;background:#fff;color:var(--ink);min-width:0}
+  .row input.grow{flex:1}
+  .num{width:56px}
+  .del{border:0;background:none;color:#b4553f;cursor:pointer;font-size:16px;padding:0 4px}
+  .out{border-top:1px solid var(--line);padding:10px;display:flex;flex-direction:column;gap:8px;max-height:42%}
+  textarea{width:100%;flex:1;font:11px/1.5 ui-monospace,Menlo,Consolas,monospace;border:1px solid var(--line);border-radius:6px;padding:8px;resize:none;background:#fffdf8;color:#4a3f37}
+  button.act{border:1px solid var(--line);background:#f0e6d4;border-radius:5px;padding:5px 12px;cursor:pointer;font:12px inherit;color:var(--ink)}
+  button.act:hover{background:#e6d8c0}
+  label.file{border:1px solid var(--line);background:#f0e6d4;border-radius:5px;padding:5px 12px;cursor:pointer;font-size:12px}
+  label.file input{display:none}
+  @media (max-width:820px){main{grid-template-columns:1fr;grid-template-rows:1fr auto}aside{max-height:44vh;border-left:0;border-top:1px solid var(--line)}}
+</style>
+</head>
+<body>
+<header>
+  <h1>热点坐标工具</h1>
+  <label class="file">选一张房间图<input type="file" id="file" accept="image/*"></label>
+  <button class="act" id="clear">清空点</button>
+  <span class="hint">把 Procreate 导出的图拖进来（或点左上选图），然后在图上点物件 → 把右边的 JSON 复制进 data/content.js</span>
+</header>
+
+<main>
+  <div id="stage">
+    <div id="wrap" class="empty">把房间图拖到这里<br><small>建议 16:9，例如 3200×1800</small></div>
+  </div>
+  <aside>
+    <div class="list" id="list"></div>
+    <div class="out">
+      <div style="display:flex;gap:8px;align-items:center">
+        <strong style="font-weight:400;font-size:12px;letter-spacing:.1em;color:#8a7a68">复制进 content.js 的 hotspots</strong>
+        <button class="act" id="copy" style="margin-left:auto">复制</button>
+      </div>
+      <textarea id="json" readonly></textarea>
+    </div>
+  </aside>
+</main>
+
+<script>
+(function(){
+  "use strict";
+  var wrap = document.getElementById("wrap");
+  var stage = document.getElementById("stage");
+  var listEl = document.getElementById("list");
+  var jsonEl = document.getElementById("json");
+  var points = [];   // {id,label,kind,x,y,d}
+  var seq = 1;
+  var img = null;
+
+  function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c];}); }
+
+  /* ---- 载入图片 ---- */
+  function loadFile(file){
+    if(!file || !/^image\//.test(file.type)) return;
+    var url = URL.createObjectURL(file);
+    setImage(url, file.name);
+  }
+
+  function setImage(url, name){
+    wrap.className = "";
+    wrap.innerHTML = "";
+    img = new Image();
+    img.onload = function(){ renderPoints(); };
+    img.src = url;
+    img.alt = name || "房间图";
+    img.draggable = false;
+    wrap.appendChild(img);
+    renderPoints();
+  }
+
+  function round1(n){ return Math.round(n * 10) / 10; }
+
+  /* ---- 画点 ---- */
+  function renderPoints(){
+    Array.prototype.slice.call(wrap.querySelectorAll(".dot")).forEach(function(n){ n.remove(); });
+    var w = wrap.clientWidth;
+    points.forEach(function(p, i){
+      var dot = document.createElement("div");
+      dot.className = "dot";
+      dot.style.left = p.x + "%";
+      dot.style.top = p.y + "%";
+      dot.style.width = (p.d / 100 * w) + "px";
+      dot.style.height = dot.style.width;
+      dot.innerHTML = "<span>" + esc(p.label || p.id) + "</span>" + (i + 1);
+      dot.title = "拖动可微调位置";
+
+      dot.addEventListener("pointerdown", function(e){
+        e.stopPropagation(); e.preventDefault();
+        var rect = wrap.getBoundingClientRect();
+        dot.setPointerCapture(e.pointerId);
+        function move(ev){
+          p.x = round1(Math.max(0, Math.min(100, (ev.clientX - rect.left) / rect.width * 100)));
+          p.y = round1(Math.max(0, Math.min(100, (ev.clientY - rect.top) / rect.height * 100)));
+          dot.style.left = p.x + "%";
+          dot.style.top = p.y + "%";
+          updateRow(i);
+          output();
+        }
+        function up(){
+          dot.removeEventListener("pointermove", move);
+          dot.removeEventListener("pointerup", up);
+        }
+        dot.addEventListener("pointermove", move);
+        dot.addEventListener("pointerup", up);
+      });
+
+      wrap.appendChild(dot);
+    });
+  }
+
+  function updateRow(i){
+    var row = listEl.children[i];
+    if(!row) return;
+    row.querySelector(".x").value = points[i].x;
+    row.querySelector(".y").value = points[i].y;
+  }
+
+  /* ---- 列表 ---- */
+  function renderList(){
+    listEl.innerHTML = "";
+    if(!points.length){
+      listEl.innerHTML = '<p style="font-size:12px;color:#8a7a68">还没有点。在图上点一下物件。</p>';
+    }
+    points.forEach(function(p, i){
+      var row = document.createElement("div");
+      row.className = "row";
+      row.innerHTML =
+        '<div class="row__top">' +
+          '<span style="color:#b4553f;font-size:11px">' + (i + 1) + '</span>' +
+          '<input class="grow label" placeholder="名字，例如 缝纫机" value="' + esc(p.label) + '">' +
+          '<button class="del" title="删掉">×</button>' +
+        '</div>' +
+        '<div class="row__top" style="margin:0">' +
+          '<select class="kind">' +
+            '<option value="memory">故事</option>' +
+            '<option value="granny">奶奶</option>' +
+            '<option value="scene">换房间</option>' +
+          '</select>' +
+          '<input class="grow id" placeholder="id" value="' + esc(p.id) + '">' +
+          '<input class="num x" type="number" step="0.1" value="' + p.x + '">' +
+          '<input class="num y" type="number" step="0.1" value="' + p.y + '">' +
+          '<input class="num d" type="number" step="0.5" value="' + p.d + '">' +
+        '</div>';
+
+      row.querySelector(".kind").value = p.kind;
+      row.querySelector(".label").addEventListener("input", function(e){ p.label = e.target.value; renderPoints(); output(); });
+      row.querySelector(".id").addEventListener("input", function(e){ p.id = e.target.value.trim(); output(); });
+      row.querySelector(".kind").addEventListener("change", function(e){ p.kind = e.target.value; output(); });
+      ["x", "y", "d"].forEach(function(k){
+        row.querySelector("." + k).addEventListener("input", function(e){
+          p[k] = parseFloat(e.target.value) || 0;
+          renderPoints(); output();
+        });
+      });
+      row.querySelector(".del").addEventListener("click", function(){
+        points.splice(i, 1); renderList(); renderPoints(); output();
+      });
+      listEl.appendChild(row);
+    });
+  }
+
+  /* ---- 输出 ---- */
+  function output(){
+    var out = points.map(function(p){
+      var s = '{\n  id: "' + p.id + '", label: "' + (p.label || "（名字）") + '", kind: "' + p.kind + '",\n  x: ' + p.x + ', y: ' + p.y + ', d: ' + p.d;
+      if(p.kind === "scene") s += ',\n  to: "kitchen"';
+      if(p.kind === "memory") s += ',\n  story: {\n    title: "' + (p.label || "标题") + '",\n    body: ["……"],\n    audio: "",\n    transcript: "",\n    photos: []\n  }';
+      return s + '\n}';
+    }).join(",\n");
+    jsonEl.value = out;
+  }
+
+  function refresh(){ renderList(); renderPoints(); output(); }
+
+  /* ---- 事件 ---- */
+  document.getElementById("file").addEventListener("change", function(e){ loadFile(e.target.files[0]); });
+  document.getElementById("clear").addEventListener("click", function(){
+    if(!points.length) return;
+    if(!confirm("清空所有点？")) return;
+    points = []; refresh();
+  });
+  document.getElementById("copy").addEventListener("click", function(){
+    jsonEl.select();
+    if(navigator.clipboard) navigator.clipboard.writeText(jsonEl.value).catch(function(){ document.execCommand("copy"); });
+    else document.execCommand("copy");
+    this.textContent = "已复制";
+    var btn = this;
+    setTimeout(function(){ btn.textContent = "复制"; }, 1400);
+  });
+
+  wrap.addEventListener("click", function(e){
+    if(e.target !== img) return;
+    var r = wrap.getBoundingClientRect();
+    var x = (e.clientX - r.left) / r.width * 100;
+    var y = (e.clientY - r.top) / r.height * 100;
+    points.push({ id: "spot" + (seq++), label: "", kind: "memory", x: round1(x), y: round1(y), d: 10 });
+    refresh();
+  }, true);
+
+  ["dragenter","dragover"].forEach(function(t){
+    document.addEventListener(t, function(e){ e.preventDefault(); });
+  });
+  document.addEventListener("drop", function(e){
+    e.preventDefault();
+    var f = e.dataTransfer.files && e.dataTransfer.files[0];
+    if(f) loadFile(f);
+  });
+  window.addEventListener("resize", function(){ renderPoints(); });
+
+  refresh();
+})();
+</script>
+</body>
+</html>

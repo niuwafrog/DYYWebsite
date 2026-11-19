@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 760" width="760" height="760">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0.2" y2="1">
+      <stop offset="0" stop-color="#e8dab9"/><stop offset=".6" stop-color="#c0a382"/><stop offset="1" stop-color="#c0a382"/>
+    </linearGradient>
+    <radialGradient id="vig" cx=".5" cy=".42" r=".78">
+      <stop offset=".5" stop-color="#000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#3a2718" stop-opacity=".5"/>
+    </radialGradient>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="17"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="linear" slope=".22"/></feComponentTransfer>
+    </filter>
+  </defs>
+  <rect width="760" height="760" fill="url(#bg)"/>
+  <rect y="456" width="760" height="304" fill="#675440" opacity=".22"/>
+  <rect y="456" width="760" height="6" fill="#fff8ea" opacity=".3"/>
+  <rect x="68" y="106" width="228" height="213" fill="#fdf6e4" opacity=".8" stroke="#675440" stroke-opacity=".35" stroke-width="5"/>
+  <rect x="68" y="213" width="228" height="5" fill="#675440" opacity=".3"/>
+  
+  <rect width="760" height="760" fill="url(#vig)"/>
+  <rect width="760" height="760" filter="url(#grain)" opacity=".6"/>
+  <text x="380" y="734" text-anchor="middle" font-family="Georgia, serif" font-size="19" fill="#675440" opacity=".7" letter-spacing="3">1988 · 占位照片</text>
+</svg>

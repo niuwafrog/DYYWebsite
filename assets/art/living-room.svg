@@ -1,0 +1,218 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-label="客厅占位图">
+  <defs>
+    <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f1e6d0"/><stop offset="1" stop-color="#ded0b6"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#eef5f1"/><stop offset="1" stop-color="#cddfdb"/>
+    </linearGradient>
+    <radialGradient id="sun" cx=".5" cy=".2" r=".9">
+      <stop offset="0" stop-color="#fff6dd" stop-opacity=".95"/>
+      <stop offset="1" stop-color="#fff6dd" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="floorG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#c8a684"/><stop offset="1" stop-color="#b18f6d"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 墙 / 地 -->
+  <rect width="1600" height="900" fill="url(#wall)"/>
+  <rect y="620" width="1600" height="280" fill="url(#floorG)"/>
+  <g stroke="#8d6c4e" stroke-opacity=".16" stroke-width="3">
+    <line x1="0" y1="700" x2="1600" y2="700"/>
+    <line x1="0" y1="790" x2="1600" y2="790"/>
+    <line x1="180" y1="620" x2="150" y2="900"/>
+    <line x1="620" y1="620" x2="600" y2="900"/>
+    <line x1="1080" y1="620" x2="1100" y2="900"/>
+    <line x1="1460" y1="620" x2="1480" y2="900"/>
+  </g>
+  <rect y="606" width="1600" height="20" fill="#b8926a"/>
+  <rect y="606" width="1600" height="6" fill="#cfa87c"/>
+
+  <!-- 窗 + 光 -->
+  <polygon points="990,420 1370,420 1330,780 860,780" fill="url(#sun)" opacity=".8"/>
+  <rect x="972" y="92" width="396" height="346" rx="4" fill="#a87f56"/>
+  <rect x="990" y="110" width="360" height="310" fill="url(#glass)"/>
+  <g stroke="#a87f56" stroke-width="12">
+    <line x1="1170" y1="110" x2="1170" y2="420"/>
+    <line x1="990" y1="266" x2="1350" y2="266"/>
+  </g>
+  <g fill="#f4ead6" opacity=".9">
+    <path d="M952 96h44c-6 120-6 240 0 350h-44c8-118 8-232 0-350z"/>
+    <path d="M1344 96h44c-8 118-8 232 0 350h-44c6-110 6-230 0-350z"/>
+  </g>
+  <rect x="958" y="430" width="424" height="14" fill="#c29a70"/>
+
+  <!-- 墙上的架子 -->
+  <rect x="212" y="150" width="420" height="196" fill="#cbb08b" opacity=".35"/>
+  <rect x="212" y="150" width="420" height="14" fill="#9c7349"/>
+  <rect x="212" y="318" width="420" height="14" fill="#9c7349"/>
+  <!-- 上层罐子 -->
+  <g>
+    <rect x="238" y="104" width="46" height="46" rx="5" fill="#d9c3a0" stroke="#a8855c" stroke-width="2"/>
+    <rect x="244" y="96" width="34" height="10" rx="2" fill="#8a6a48"/>
+    <rect x="300" y="94" width="52" height="56" rx="6" fill="#c9a06f" stroke="#a8855c" stroke-width="2"/>
+    <rect x="306" y="86" width="40" height="10" rx="2" fill="#7d6144"/>
+    <rect x="368" y="112" width="44" height="38" rx="5" fill="#e0cda9" stroke="#a8855c" stroke-width="2"/>
+    <rect x="374" y="104" width="32" height="10" rx="2" fill="#8a6a48"/>
+    <rect x="428" y="98" width="50" height="52" rx="6" fill="#b8a17d" stroke="#a8855c" stroke-width="2"/>
+    <rect x="486" y="110" width="40" height="40" rx="4" fill="#d3bb95" stroke="#a8855c" stroke-width="2"/>
+    <rect x="540" y="102" width="62" height="48" rx="5" fill="#c7ab84" stroke="#a8855c" stroke-width="2"/>
+  </g>
+  <!-- 下层：书和铁盒 -->
+  <g>
+    <rect x="238" y="264" width="26" height="54" fill="#8e6a55"/>
+    <rect x="268" y="258" width="22" height="60" fill="#7c6f58"/>
+    <rect x="294" y="268" width="30" height="50" fill="#9a7c62"/>
+    <rect x="330" y="256" width="24" height="62" fill="#6f7a68"/>
+    <rect x="384" y="272" width="88" height="46" rx="4" fill="#a8a2a0" stroke="#7d7775" stroke-width="2"/>
+    <rect x="400" y="284" width="56" height="8" rx="2" fill="#8b8684"/>
+    <circle cx="470" cy="258" r="16" fill="#cfc6bb"/>
+    <rect x="520" y="236" width="12" height="82" fill="#8a6a48"/>
+    <path d="M532 236c26-14 52 6 52 30s-26 36-52 22z" fill="#7c8a6e"/>
+  </g>
+
+  <!-- 日历 -->
+  <g>
+    <rect x="462" y="356" width="104" height="140" fill="#f8f1e2" stroke="#c9b393" stroke-width="2"/>
+    <rect x="462" y="356" width="104" height="34" fill="#b4553f"/>
+    <text x="514" y="380" font-size="17" fill="#fdf6ec" text-anchor="middle" font-family="serif">十一月</text>
+    <g stroke="#c9b393" stroke-width="1" opacity=".7">
+      <line x1="462" y1="410" x2="566" y2="410"/>
+      <line x1="462" y1="440" x2="566" y2="440"/>
+      <line x1="462" y1="470" x2="566" y2="470"/>
+    </g>
+    <circle cx="500" cy="462" r="9" fill="none" stroke="#b4553f" stroke-width="2"/>
+  </g>
+
+  <!-- 通往厨房的门 -->
+  <g>
+    <rect x="28" y="292" width="176" height="330" fill="#a97f57"/>
+    <rect x="42" y="306" width="148" height="140" fill="#9a7350"/>
+    <rect x="42" y="460" width="148" height="148" fill="#9a7350"/>
+    <circle cx="182" cy="460" r="9" fill="#e3d2b4"/>
+  </g>
+
+  <!-- 沙发 -->
+  <g>
+    <rect x="76" y="466" width="490" height="120" rx="16" fill="#5f6f5c"/>
+    <rect x="96" y="556" width="450" height="96" rx="10" fill="#68795f"/>
+    <rect x="96" y="556" width="212" height="96" rx="10" fill="#718268"/>
+    <rect x="120" y="500" width="200" height="70" rx="12" fill="#78896e"/>
+    <rect x="340" y="500" width="180" height="70" rx="12" fill="#718268"/>
+    <rect x="62" y="512" width="46" height="150" rx="14" fill="#55644f"/>
+    <rect x="534" y="512" width="46" height="150" rx="14" fill="#55644f"/>
+    <rect x="96" y="646" width="16" height="30" fill="#7d5b3c"/>
+    <rect x="532" y="646" width="16" height="30" fill="#7d5b3c"/>
+    <rect x="76" y="650" width="490" height="10" fill="#4c5a47"/>
+  </g>
+
+  <!-- 奶奶的椅子 + 她 -->
+  <g>
+    <rect x="656" y="424" width="232" height="230" rx="26" fill="#8f6a52"/>
+    <rect x="676" y="580" width="192" height="92" rx="16" fill="#a07b5f"/>
+    <rect x="636" y="560" width="44" height="140" rx="18" fill="#8f6a52"/>
+    <rect x="864" y="560" width="44" height="140" rx="18" fill="#8f6a52"/>
+    <rect x="672" y="688" width="14" height="26" fill="#7a5842"/>
+    <rect x="858" y="688" width="14" height="26" fill="#7a5842"/>
+
+    <!-- 奶奶 -->
+    <g>
+      <path d="M706 636c0-52 30-84 66-84s66 32 66 84z" fill="#9c7b63"/>
+      <path d="M714 640c0-46 26-76 58-76s58 30 58 76z" fill="#ad8b71"/>
+      <rect x="740" y="556" width="64" height="30" rx="12" fill="#e6c3a6"/>
+      <circle cx="772" cy="518" r="46" fill="#e8c6a8"/>
+      <path d="M728 500c2-30 22-48 44-48s42 18 44 48c-10-14-26-22-44-22s-34 8-44 22z" fill="#dcd6ca"/>
+      <path d="M726 520c0-24 20-42 46-42s46 18 46 42c0 8-4 12-8 10-6-22-20-30-38-30s-32 8-38 30c-4 2-8-2-8-10z" fill="#cfc9bd"/>
+      <circle cx="756" cy="516" r="3.4" fill="#4a3f37"/>
+      <circle cx="788" cy="516" r="3.4" fill="#4a3f37"/>
+      <path d="M762 538c6 5 14 5 20 0" stroke="#b98a72" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <!-- 手 -->
+      <ellipse cx="716" cy="640" rx="17" ry="14" fill="#e8c6a8"/>
+      <ellipse cx="828" cy="640" rx="17" ry="14" fill="#e8c6a8"/>
+      <!-- 腿 -->
+      <rect x="738" y="636" width="26" height="52" rx="10" fill="#4b4340"/>
+      <rect x="782" y="636" width="26" height="52" rx="10" fill="#4b4340"/>
+    </g>
+    <rect x="676" y="628" width="192" height="52" rx="14" fill="#a07b5f" opacity=".92"/>
+  </g>
+
+  <!-- 小方桌 + 收音机 -->
+  <g>
+    <rect x="928" y="566" width="184" height="18" rx="4" fill="#9c7349"/>
+    <rect x="944" y="584" width="14" height="112" fill="#8a6440"/>
+    <rect x="1082" y="584" width="14" height="112" fill="#8a6440"/>
+    <rect x="944" y="646" width="152" height="10" fill="#a07a52"/>
+    <!-- 收音机 -->
+    <rect x="956" y="478" width="164" height="88" rx="8" fill="#7b5c3f"/>
+    <rect x="968" y="490" width="66" height="64" rx="4" fill="#c8b28e"/>
+    <g stroke="#9a8462" stroke-width="2">
+      <line x1="972" y1="500" x2="1030" y2="500"/>
+      <line x1="972" y1="510" x2="1030" y2="510"/>
+      <line x1="972" y1="520" x2="1030" y2="520"/>
+      <line x1="972" y1="530" x2="1030" y2="530"/>
+      <line x1="972" y1="540" x2="1030" y2="540"/>
+    </g>
+    <circle cx="1072" cy="506" r="15" fill="#d8c5a3"/>
+    <circle cx="1072" cy="506" r="5" fill="#7b5c3f"/>
+    <rect x="1048" y="534" width="52" height="8" rx="3" fill="#d8c5a3"/>
+    <line x1="1000" y1="478" x2="1030" y2="430" stroke="#7b5c3f" stroke-width="4"/>
+  </g>
+
+  <!-- 缝纫机桌 -->
+  <g>
+    <rect x="1148" y="556" width="304" height="20" rx="4" fill="#a87c50"/>
+    <rect x="1168" y="576" width="16" height="122" fill="#8a6440"/>
+    <rect x="1418" y="576" width="16" height="122" fill="#8a6440"/>
+    <rect x="1200" y="654" width="200" height="10" fill="#a07a52"/>
+    <!-- 缝纫机 -->
+    <rect x="1178" y="486" width="246" height="52" rx="6" fill="#4f4a45"/>
+    <rect x="1200" y="440" width="86" height="46" rx="4" fill="#5b5650"/>
+    <path d="M1290 486c34 0 52-16 52-38" stroke="#4f4a45" stroke-width="12" fill="none" stroke-linecap="round"/>
+    <rect x="1290" y="418" width="64" height="12" rx="4" fill="#4f4a45"/>
+    <line x1="1320" y1="430" x2="1320" y2="486" stroke="#3f3a36" stroke-width="4"/>
+    <circle cx="1396" cy="500" r="20" fill="#7a5c3c"/>
+    <!-- 铁盒 -->
+    <rect x="1360" y="520" width="60" height="36" rx="4" fill="#a9a29a" stroke="#7d7770" stroke-width="2"/>
+    <rect x="1372" y="532" width="36" height="6" rx="2" fill="#8b857e"/>
+    <!-- 踏板 -->
+    <rect x="1300" y="676" width="96" height="10" rx="4" fill="#6d5642"/>
+  </g>
+
+  <!-- 吊灯 -->
+  <g>
+    <line x1="816" y1="0" x2="816" y2="66" stroke="#8a7a68" stroke-width="4"/>
+    <path d="M772 118c0-30 20-52 44-52s44 22 44 52z" fill="#e8d6b2"/>
+    <rect x="806" y="66" width="20" height="12" fill="#8a7a68"/>
+    <circle cx="816" cy="128" r="16" fill="#fff3cf"/>
+  </g>
+
+  <!-- 地毯 + 猫 -->
+  <g>
+    <ellipse cx="790" cy="792" rx="270" ry="72" fill="#b8a58e"/>
+    <ellipse cx="790" cy="792" rx="238" ry="56" fill="none" stroke="#a08d76" stroke-width="4"/>
+    <ellipse cx="800" cy="782" rx="62" ry="28" fill="#d9a566"/>
+    <circle cx="856" cy="768" r="24" fill="#d9a566"/>
+    <path d="M838 752l6-18 14 12z" fill="#d9a566"/>
+    <path d="M862 748l10-14 8 16z" fill="#d9a566"/>
+    <path d="M742 786c-22-4-34-14-30-24" stroke="#d9a566" stroke-width="12" fill="none" stroke-linecap="round"/>
+    <path d="M846 774c4 3 10 3 14 0" stroke="#8b6a44" stroke-width="2" fill="none"/>
+  </g>
+
+  <!-- 占位标签 -->
+  <g font-family="Georgia, serif" font-size="17" fill="#6f5b46" opacity=".55">
+    <text x="1060" y="596" text-anchor="middle">方桌</text>
+    <text x="1300" y="712" text-anchor="middle">缝纫机</text>
+    <text x="322" y="742" text-anchor="middle">沙发</text>
+    <text x="772" y="742" text-anchor="middle">奶奶的椅子</text>
+    <text x="422" y="352" text-anchor="middle">架子</text>
+    <text x="1170" y="452" text-anchor="middle">窗</text>
+    <text x="116" y="640" text-anchor="middle">→ 厨房</text>
+    <text x="514" y="520" text-anchor="middle">日历</text>
+    <text x="790" y="880" text-anchor="middle">地毯</text>
+  </g>
+
+  <g font-family="Georgia, serif" font-size="15" fill="#7d6a56" opacity=".5">
+    <text x="1590" y="884" text-anchor="end">占位图 · 3200×1800 导出后替换 assets/art/living-room.*</text>
+  </g>
+</svg>

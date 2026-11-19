@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>奶奶的房间</title>
+<meta name="description" content="一个可以走进去的数字纪念：客厅、厨房、旧照片，和一些还留在这里的声音。">
+<link rel="stylesheet" href="styles/style.css">
+</head>
+<body data-phase="day">
+
+<a class="skip" href="#viewRoom">跳到房间</a>
+
+<!-- ============ 1. 封面：旧照片拼贴 ============ -->
+<section class="view view--intro is-active" id="viewIntro">
+  <div class="intro__photos" id="introPhotos" aria-hidden="true"></div>
+  <div class="intro__inner">
+    <p class="intro__kicker" id="introKicker"></p>
+    <h1 class="intro__title" id="introTitle">奶奶的房间</h1>
+    <p class="intro__lead" id="introLead"></p>
+    <button class="btn" id="enterBtn" type="button">推门进去</button>
+    <p class="intro__hint" id="introHint"></p>
+  </div>
+</section>
+
+<!-- ============ 2. 房间 ============ -->
+<section class="view view--room" id="viewRoom" aria-label="房间">
+  <header class="topbar">
+    <span class="brand" id="brand"></span>
+    <div class="topbar__tools">
+      <button class="pill" id="hintBtn" type="button" aria-pressed="false">哪里可以看</button>
+      <button class="pill" id="soundBtn" type="button" aria-pressed="true">声音</button>
+      <button class="pill" id="deskBtn" type="button">照片桌<span class="pill__count" id="photoCount" hidden></span></button>
+      <button class="pill pill--ghost" id="menuBtn" type="button" aria-expanded="false" aria-controls="menu">…</button>
+    </div>
+  </header>
+
+  <div class="stage">
+    <div class="stage__fit" id="stageFit">
+      <div class="scene" id="scene">
+        <img class="scene__art" id="sceneArt" alt="" draggable="false">
+        <div class="scene__light" id="sceneLight" aria-hidden="true"></div>
+        <div class="scene__grain" aria-hidden="true"></div>
+        <div class="scene__hotspots" id="hotspots"></div>
+        <div class="speech" id="speech" role="status" aria-live="polite" hidden></div>
+      </div>
+    </div>
+    <p class="pan-hint" id="panHint" hidden>← 左右滑动看看房间 →</p>
+    <nav class="scenetabs" id="sceneTabs" aria-label="房间之间"></nav>
+  </div>
+
+  <div class="menu" id="menu" hidden>
+    <button type="button" data-menu="restart">从头再来一次</button>
+    <button type="button" data-menu="about">关于这个项目</button>
+  </div>
+</section>
+
+<!-- ============ 3. 照片桌：自由拼贴 ============ -->
+<section class="view view--desk" id="viewDesk" aria-label="照片桌">
+  <header class="deskbar">
+    <button class="pill" id="deskBack" type="button">← 回到房间</button>
+    <p class="deskbar__title">照片桌</p>
+    <div class="deskbar__tools">
+      <button class="pill" id="deskExport" type="button">导出图片</button>
+      <button class="pill pill--ghost" id="deskClear" type="button">清空</button>
+    </div>
+  </header>
+  <div class="desk">
+    <div class="desk__tray" id="deskTray" aria-label="抽屉里的照片"></div>
+    <div class="desk__board" id="deskBoard" aria-label="桌面，拖动照片自由摆放"></div>
+  </div>
+  <p class="desk__note" id="deskNote"></p>
+</section>
+
+<!-- ============ 记忆抽屉 ============ -->
+<aside class="drawer" id="drawer" role="dialog" aria-modal="false" aria-labelledby="drawerTitle" aria-hidden="true" tabindex="-1">
+  <button class="drawer__close" id="drawerClose" type="button" aria-label="关上这扇小门">×</button>
+  <div class="drawer__body" id="drawerBody"></div>
+</aside>
+<div class="drawer__scrim" id="drawerScrim" hidden></div>
+
+<!-- ============ 看图 ============ -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="看照片" aria-hidden="true">
+  <button class="lightbox__close" id="lightboxClose" type="button" aria-label="关上">×</button>
+  <button class="lightbox__nav lightbox__nav--prev" id="lightboxPrev" type="button" aria-label="上一张">‹</button>
+  <figure class="lightbox__figure">
+    <img id="lightboxImg" alt="">
+    <figcaption id="lightboxCap"></figcaption>
+  </figure>
+  <button class="lightbox__nav lightbox__nav--next" id="lightboxNext" type="button" aria-label="下一张">›</button>
+</div>
+
+<audio id="ambient" loop preload="none"></audio>
+
+<script>
+/* 开发用：把页面里的报错收集起来，方便排查（不影响访客） */
+window.__errs = [];
+window.addEventListener("error", function (e) { window.__errs.push(String(e.message)); });
+window.addEventListener("unhandledrejection", function (e) { window.__errs.push("promise: " + e.reason); });
+</script>
+<script src="data/content.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/collage.js"></script>
+</body>
+</html>

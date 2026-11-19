@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 620" width="840" height="620">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0.2" y2="1">
+      <stop offset="0" stop-color="#eee0c2"/><stop offset=".6" stop-color="#c5a886"/><stop offset="1" stop-color="#c5a886"/>
+    </linearGradient>
+    <radialGradient id="vig" cx=".5" cy=".42" r=".78">
+      <stop offset=".5" stop-color="#000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#3a2718" stop-opacity=".5"/>
+    </radialGradient>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="23"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="linear" slope=".22"/></feComponentTransfer>
+    </filter>
+  </defs>
+  <rect width="840" height="620" fill="url(#bg)"/>
+  <rect y="372" width="840" height="248" fill="#6a5644" opacity=".22"/>
+  <rect y="372" width="840" height="6" fill="#fff8ea" opacity=".3"/>
+  <rect x="76" y="87" width="252" height="174" fill="#fdf6e4" opacity=".8" stroke="#6a5644" stroke-opacity=".35" stroke-width="5"/>
+  <rect x="76" y="174" width="252" height="5" fill="#6a5644" opacity=".3"/>
+  
+    <g>
+      <ellipse cx="232" cy="285" rx="29" ry="32" fill="#6a5644" opacity=".92"/>
+      <path d="M177 496
+               c0 -163.2897412776947 54.37548384547233 -182.88451023101808 108.75096769094466 0
+               z" fill="#6a5644" opacity=".84"/>
+    </g>
+    <g>
+      <ellipse cx="338" cy="285" rx="25" ry="27" fill="#6a5644" opacity=".92"/>
+      <path d="M293 462
+               c0 -137.071643024683 45.64485712721944 -153.520240187645 91.28971425443888 0
+               z" fill="#6a5644" opacity=".84"/>
+    </g>
+    <g>
+      <ellipse cx="485" cy="285" rx="32" ry="35" fill="#6a5644" opacity=".92"/>
+      <path d="M426 514
+               c0 -177.2833487391472 59.03535513013601 -198.55735058784487 118.07071026027202 0
+               z" fill="#6a5644" opacity=".84"/>
+    </g>
+    <g>
+      <ellipse cx="632" cy="285" rx="27" ry="30" fill="#6a5644" opacity=".92"/>
+      <path d="M582 478
+               c0 -149.7317111492157 49.86065981268883 -167.6995164871216 99.72131962537766 0
+               z" fill="#6a5644" opacity=".84"/>
+    </g>
+  <rect width="840" height="620" fill="url(#vig)"/>
+  <rect width="840" height="620" filter="url(#grain)" opacity=".6"/>
+  <text x="420" y="594" text-anchor="middle" font-family="Georgia, serif" font-size="19" fill="#6a5644" opacity=".7" letter-spacing="3">1996 · 占位照片</text>
+</svg>
